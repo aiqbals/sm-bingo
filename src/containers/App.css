@@ -9,3 +9,15 @@
   grid-gap: 10px;
   grid-template-columns: repeat(5, auto);
 }
+
+button {
+  background: #d2d5d8;
+  font-weight: bold;
+  margin: 2rem auto;
+  border: 2px yellowgreen solid;
+  border-radius: 25px;
+  position: relative;
+  padding: 3px;
+  cursor: pointer;
+  min-width: 200px;
+}

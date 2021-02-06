@@ -1,4 +1,4 @@
-import logo from '../components/logo/logo.svg';
+//import logo from '../components/logo/logo.svg';
 import './App.css';
 
 import React, { Component } from "react";
@@ -6,14 +6,8 @@ import React, { Component } from "react";
 import shuffle from "shuffle-array";
 import Celebration from "../components/Celebration/Celebration";
 import Cell from "../components/Cell/Cell";
+//import Button from '../components/Button/Button';
 import './App.css';
-
-/* function Confetti() {
-  useEffect(() => {
-    start();
-  });
-  return <canvas id="canvas" />;
-} */
 
 const bbb = [
   "child noises in the background ",
@@ -53,7 +47,8 @@ class App extends Component {
     super(props)
     this.state = {
       checked: {},
-      won: false
+      won: false,
+      show: false
     }
   }
 
@@ -81,31 +76,35 @@ class App extends Component {
       };
     });
 
-  const setTime = () => {
-    setTimeout( ()=> this.setState({won: false}) , 1000);
+  const onBtnPlay = () => {
+    let state = Object.assign({}, this.state, {show: true});
+    this.setState(state)
   }
+
+  let bingo = this.state.show ? 
+      Object.keys(bbb).map(id => (
+        <Cell
+          key={id}
+          id={id}
+          isSet={!!this.state.checked[id]}
+          onToggle={() => toggle(id)}
+        >
+          {data[id]}
+        </Cell> 
+    )) : 
+    <button onClick={onBtnPlay} className='w-20 shadow-5'> Play </button>;
+
   
   return (
     <div className="App">
-      <div className='tc bg-white w-100'>
-          <h1 className=''>SM-Bingo</h1>
-      </div>
-      
+      <h1 className='tc bg-white w-100'>SM-Bingo</h1>
+
       <div className='wrapper'>
-        {Object.keys(bbb).map(id => (
-          <Cell
-            key={id}
-            id={id}
-            isSet={!!this.state.checked[id]}
-            onToggle={() => toggle(id)}
-          >
-            {data[id]}
-          </Cell>
-        ))}
-      </div>
-      { this.state.won ? 
-        <Celebration /> : null && setTime()}
-    </div>
+        {bingo}
+      </div> 
+
+      { this.state.won ? <Celebration /> : null }
+    </div> 
   );
   }
 }
