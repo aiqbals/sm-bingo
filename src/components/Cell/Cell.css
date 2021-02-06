@@ -1,0 +1,22 @@
+.tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    padding: 10px;
+    min-height: 40px;
+    font-weight: bold;
+    font-size: 20px;
+  
+    border: 2px yellowgreen solid;
+    border-radius: 10px;
+  
+    cursor: pointer;
+  }
+  
+  .tile--set {
+    background: rgb(0, 0, 0);
+    text-decoration: line-through;
+    text-decoration-color: red;
+    color: whitesmoke;
+  }
