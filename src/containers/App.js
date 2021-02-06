@@ -87,8 +87,11 @@ class App extends Component {
   
   return (
     <div className="App">
-      <h1 className='tc bg-light-green w-100 '>SM-Bingo</h1>
-      <div className="wrapper">
+      <div className='tc bg-white w-100'>
+          <h1 className=''>SM-Bingo</h1>
+      </div>
+      
+      <div className='wrapper'>
         {Object.keys(bbb).map(id => (
           <Cell
             key={id}
