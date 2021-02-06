@@ -82,7 +82,7 @@ class App extends Component {
   }
 
   let bingo = this.state.show ? 
-      Object.keys(bbb).map(id => (
+      Object.keys(data).map(id => (
         <Cell
           key={id}
           id={id}
