@@ -104,7 +104,7 @@ class App extends Component {
       <div className={ `${show ? 'wrapper' : ''}` }>
         {bingo}
       </div> 
-      { won && disap? <Celebration />: null }
+      { won && disap ? <Celebration />: null }
     </div> 
   );
   }
