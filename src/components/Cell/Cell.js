@@ -1,11 +1,11 @@
 import React from 'react';
 
-import './Cell.css';
+import './Cell.scss';
 
 const Cell = ({ children, onToggle, isSet }) => {
   return (
     <div 
-      className={ `tile ${isSet ? "tile--set" : ""}` } 
+      className={ `tile ${isSet ? "tileset" : ""}` } 
       onClick={onToggle}>
 
         {children}
