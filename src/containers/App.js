@@ -1,13 +1,9 @@
-//import logo from '../components/logo/logo.svg';
-import './App.css';
-
 import React, { Component } from "react";
 //import ReactDOM from "react-dom";
 import shuffle from "shuffle-array";
 import Celebration from "../components/Celebration/Celebration";
 import Cell from "../components/Cell/Cell";
-//import Button from '../components/Button/Button';
-import './App.css';
+import './App.scss';
 
 const bbb = [
   "child noises in the background ",
@@ -48,8 +44,14 @@ class App extends Component {
     this.state = {
       checked: {},
       won: false,
-      show: false
+      show: false,
+      interval: null,
+      disap: true
     }
+  }
+
+  componentDidMount(){
+    this.interval = setTimeout( () => this.setState({disap: false}), 7000);
   }
 
   render() {
@@ -60,8 +62,8 @@ class App extends Component {
         range.find(row => range.every(column => checked[row * 5 + column])) ||
       undefined !==
         range.find(column => range.every(row => checked[row * 5 + column])) ||
-      range.every(index => checked[index * 5 + index]) ||
-      range.every(index => checked[index * 5 + 4 - index])
+        range.every(index => checked[index * 5 + index]) ||
+        range.every(index => checked[index * 5 + 4 - index])
     );
   };
 
@@ -82,7 +84,7 @@ class App extends Component {
   }
 
   let bingo = this.state.show ? 
-      Object.keys(data).map(id => (
+      Object.keys(bbb).map(id => (
         <Cell
           key={id}
           id={id}
@@ -92,18 +94,18 @@ class App extends Component {
           {data[id]}
         </Cell> 
     )) : 
-    <button onClick={onBtnPlay} className='w-20 shadow-5'> Play </button>;
+    <button onClick={onBtnPlay} className='w-20 shadow-5 pa2'> Play </button>;
 
   
   return (
     <div className="App">
-      <h1 className='tc bg-white w-100'>SM-Bingo</h1>
+      <h1 className='tc f2'>sm-bingo</h1>
 
       <div className='wrapper'>
         {bingo}
       </div> 
 
-      { this.state.won ? <Celebration /> : null }
+      { this.state.won && this.state.disap ? <Celebration />: null }
     </div> 
   );
   }
