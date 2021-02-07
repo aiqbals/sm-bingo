@@ -95,16 +95,16 @@ class App extends Component {
           {data[id]}
         </Cell> 
     )) : 
-    <button onClick={onBtnPlay} className='w-20 shadow-5 pa2'> Play </button>;
+    <button onClick={onBtnPlay} className='w-20 shadow-5 pa2 mt4'> Play </button>;
 
   
   return (
     <div className="App">
       <h1 className='tc f2'>sm-bingo</h1>
-      <div className={ `wrapper2 ${show ? 'wrapper' : ""}` }>
+      <div className={ `${show ? 'wrapper' : ''}` }>
         {bingo}
       </div> 
-      { won && disap ? <Celebration />: null }
+      { won ? <Celebration />: null }
     </div> 
   );
   }
