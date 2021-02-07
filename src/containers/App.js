@@ -55,6 +55,7 @@ class App extends Component {
   }
 
   render() {
+  const  {checked, won, show,interval,disap } = this.state;
   const isWon = checked => {
     const range = [0, 1, 2, 3, 4];
     return (
@@ -100,12 +101,10 @@ class App extends Component {
   return (
     <div className="App">
       <h1 className='tc f2'>sm-bingo</h1>
-
-      <div className='wrapper'>
+      <div className={ `wrapper2 ${show ? 'wrapper' : ""}` }>
         {bingo}
       </div> 
-
-      { this.state.won && this.state.disap ? <Celebration />: null }
+      { won && disap ? <Celebration />: null }
     </div> 
   );
   }
