@@ -6,6 +6,7 @@ import Cell from "../components/Cell/Cell";
 import './App.scss';
 
 const phrases = [
+  "CONF CALL BINGO",
   "child noises in the background ",
   "Hello, hello",
   "i neeed to jump o another call ",
@@ -22,7 +23,6 @@ const phrases = [
   "Could you share this slides afterwards",
   "can somebody grant presenter rights?",
   "can you email that to everyone?",
-  "CONF CALL BINGO ",
   "i'll have to get back to you ",
   "who just joined ",
   "sorry, something with my calender ",
@@ -33,10 +33,24 @@ const phrases = [
   "can you repeat, please?"
 ];
 
-const data = shuffle(phrases).reduce(
+const data = shuffle(phrases);
+const temp = data[12];
+const confBingo = data.indexOf("CONF CALL BINGO");
+data[12] = data[confBingo];
+data[confBingo] = temp;
+data.reduce(
   (data, value, index) => ( { ...data, [index]: value } ),
   {}
-);
+); 
+
+/* const myArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const shuffleArray = (array) => {
+  const copy = [...array.slice(0, 2), ...array.slice(3, array.length)]
+  return copy.sort(() => Math.random() - 0.5)
+}
+newArr = shuffleArray(myArr)
+newArr.splice(3, 0, myArr[3])
+console.log(newArr) */
 
 class App extends Component {
   state = {
@@ -53,7 +67,7 @@ class App extends Component {
   }
 
   render() {
-  const  {won, show, disap } = this.state;
+  const  {won, show, disap} = this.state;
   const isWon = checked => {
     const range = [0, 1, 2, 3, 4];
     return (
