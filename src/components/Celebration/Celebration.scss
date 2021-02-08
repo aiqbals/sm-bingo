@@ -3,7 +3,7 @@ display: flex;
 z-index: 1;
 transition: all 1.5s;
 Transform: scale(3);
-color: rgb(162, 59, 4);
+color: rgb(230, 165, 0);
 font-family: 'Monoton', cursive;
 position: absolute;
 top: 40%;
@@ -39,15 +39,24 @@ left: 50%;
     animation: pulse 2s cubic-bezier(.5,.5,0,1);
     
     &:nth-child(2) {
-      fill: #7fc6a4;
+      fill: #51b384;
       animation: pulse 2s 0.75s cubic-bezier(.5,.5,0,1);
     }
     
     &:nth-child(3) {
-      fill: #e5f77d;
+      fill: #eaff71;
       animation: pulse 2s 1.5s cubic-bezier(.5,.5,0,1);
     }
-    
+
+    &:nth-child(4) {
+      fill: #0ea501;
+      animation: pulse 2s 2s cubic-bezier(.5,.5,0,1);
+    }
+
+    &:nth-child(5) {
+      fill: #6f3fa5;
+      animation: pulse 2s 2.5s cubic-bezier(.5,.5,0,1);
+    }
   }
   
 }
@@ -55,7 +64,7 @@ left: 50%;
 @keyframes pulse {
   
   25% {
-    opacity: 0.4;
+    opacity: 0.5;
   }
   
   100% {

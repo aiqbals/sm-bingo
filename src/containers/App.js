@@ -5,7 +5,7 @@ import Celebration from "../components/Celebration/Celebration";
 import Cell from "../components/Cell/Cell";
 import './App.scss';
 
-const bbb = [
+const phrases = [
   "child noises in the background ",
   "Hello, hello",
   "i neeed to jump o another call ",
@@ -33,21 +33,19 @@ const bbb = [
   "can you repeat, please?"
 ];
 
-const data = shuffle(bbb).reduce(
-  (data, value, index) => ({ ...data, [index]: value }),
+const data = shuffle(phrases).reduce(
+  (data, value, index) => ( { ...data, [index]: value } ),
   {}
 );
 
 class App extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
+  state = {
       checked: {},
       won: false,
       show: false,
       interval: null,
-      disap: true
-    }
+      disap: true,
+      celb: [1,2,3,4,5]
   }
 
   componentDidMount(){
@@ -55,7 +53,7 @@ class App extends Component {
   }
 
   render() {
-  const  {checked, won, show,interval, disap } = this.state;
+  const  {won, show, disap } = this.state;
   const isWon = checked => {
     const range = [0, 1, 2, 3, 4];
     return (
@@ -85,7 +83,7 @@ class App extends Component {
   }
 
   let bingo = this.state.show ? 
-      Object.keys(bbb).map(id => (
+      Object.keys(data).map(id => (
         <Cell
           key={id}
           id={id}
@@ -104,7 +102,7 @@ class App extends Component {
       <div className={ `${show ? 'wrapper' : ''}` }>
         {bingo}
       </div> 
-      { won && disap ? <Celebration />: null }
+      { won && disap ? <Celebration circle={this.state.celb} />: null }
     </div> 
   );
   }

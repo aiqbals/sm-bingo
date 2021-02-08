@@ -7,9 +7,7 @@ const Cell = ({ children, onToggle, isSet }) => {
     <div 
       className={ `tile ${isSet ? "tileset" : ""}` } 
       onClick={onToggle}>
-
         {children}
-
     </div>
   );
 }
