@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-//import ReactDOM from "react-dom";
 import shuffle from "shuffle-array";
 import Celebration from "../components/Celebration/Celebration";
 import Cell from "../components/Cell/Cell";
@@ -65,45 +64,51 @@ console.log(shuffle(myArr, 3))
 console.log(shuffle(empty, 3)) */
 
 class App extends Component {
-  state = {
-      checked: {},
-      show: true,
-      disap : false,
+  constructor(props) {
+    super(props);
+    this.showCelbr = this.showCelbr.bind(this);
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      checked: { 12: true },
+      show: false,
+      disap : true,
       celb: [1,2,3,4,5],
-      id12: data[12]
+    }
   }
 
-  componentDidMount(){
-    this.disap = setTimeout( () => this.setState({disap: false}), 7000);
+  showCelbr () {
+    setTimeout( () => this.setState({disap: false}), 4000);
+  }
+
+  isWon(checked) {
+    const range = [0, 1, 2, 3, 4];
+  return (
+    undefined !==
+      range.find(row => range.every(column => checked[row * 5 + column])) ||
+    undefined !==
+      range.find(column => range.every(row => checked[row * 5 + column])) ||
+      range.every(index => checked[index * 5 + index]) ||
+      range.every(index => checked[index * 5 + 4 - index])
+  );
+};
+
+  toggle(id){
+    const { checked } = this.state;
+    const newChecked = { ...checked, [id]: !checked[id] };
+    const won = this.isWon(newChecked);
+    if (won) {
+      console.log('test')
+      this.showCelbr()
+    }
+    this.setState( {
+      checked: newChecked,
+      won,
+      disap: won
+     } )
   }
 
   render() {
   const  {won, show, disap} = this.state;
-  const isWon = checked => {
-    const range = [0, 1, 2, 3, 4];
-    return (
-      undefined !==
-        range.find(row => range.every(column => checked[row * 5 + column])) ||
-      undefined !==
-        range.find(column => range.every(row => checked[row * 5 + column])) ||
-        range.every(index => checked[index * 5 + index]) ||
-        range.every(index => checked[index * 5 + 4 - index])
-    );
-  };
-
-  const toggle = id =>
-    this.setState( state => {
-      this.setState({disap: true});
-      console.log(id)
-      const checked = { ...state.checked, [id]: !state.checked[id] };
-      const won = isWon(checked);
-      return {
-        ...state,
-        checked,
-        won
-      };
-    });
-
   const onBtnPlay = () => {
     let state = Object.assign({}, this.state, {show: true});
     this.setState(state)
@@ -115,7 +120,7 @@ class App extends Component {
           key={id}
           id={id}
           isSet={!!this.state.checked[id]}
-          onToggle={() => toggle(id)}
+          onToggle={() => this.toggle(id)}
         >
           {data[id]}
         </Cell> 
@@ -129,7 +134,7 @@ class App extends Component {
       <div className={ `${show ? 'wrapper' : ''}` }>
         {bingo}
       </div> 
-      { won && disap? <Celebration circle={this.state.celb} />: null }
+      { won && disap ? <Celebration circle={this.state.celb} />: null }
     </div> 
   );
   }
