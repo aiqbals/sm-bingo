@@ -39,31 +39,42 @@ const confBingo = data.indexOf("CONF CALL BINGO");
 data[12] = data[confBingo];
 data[confBingo] = temp;
 data.reduce(
-  (data, value, index) => ( { ...data, [index]: value } ),
+  (data, value, index) => ({ ...data, [index]: value }),
   {}
 ); 
 
-/* const myArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-const shuffleArray = (array) => {
-  const copy = [...array.slice(0, 2), ...array.slice(3, array.length)]
-  return copy.sort(() => Math.random() - 0.5)
+/* 
+const empty = []
+
+const shuffle = (array, index) => {
+  if (array.length === 0) return `empty array`
+  if (index > array.length - 1 || index < 0) return -1
+
+  const copy = [
+    ...array.slice(0, index),
+    ...array.slice(index + 1, array.length),
+  ]
+
+  copy.sort(() => Math.random() - 0.5)
+  copy.splice(index, 0, array[index])
+
+  return copy
 }
-newArr = shuffleArray(myArr)
-newArr.splice(3, 0, myArr[3])
-console.log(newArr) */
+
+console.log(shuffle(myArr, 3))
+console.log(shuffle(empty, 3)) */
 
 class App extends Component {
   state = {
       checked: {},
-      won: false,
-      show: false,
-      interval: null,
-      disap: true,
-      celb: [1,2,3,4,5]
+      show: true,
+      disap : false,
+      celb: [1,2,3,4,5],
+      id12: data[12]
   }
 
   componentDidMount(){
-    this.interval = setTimeout( () => this.setState({disap: false}), 7000);
+    this.disap = setTimeout( () => this.setState({disap: false}), 7000);
   }
 
   render() {
@@ -82,6 +93,8 @@ class App extends Component {
 
   const toggle = id =>
     this.setState( state => {
+      this.setState({disap: true});
+      console.log(id)
       const checked = { ...state.checked, [id]: !state.checked[id] };
       const won = isWon(checked);
       return {
@@ -108,7 +121,7 @@ class App extends Component {
         </Cell> 
     )) : 
     <button onClick={onBtnPlay} className='w-20 shadow-5 pa2 mt4'> Play </button>;
-
+  
   
   return (
     <div className="App">
@@ -116,7 +129,7 @@ class App extends Component {
       <div className={ `${show ? 'wrapper' : ''}` }>
         {bingo}
       </div> 
-      { won && disap ? <Celebration circle={this.state.celb} />: null }
+      { won && disap? <Celebration circle={this.state.celb} />: null }
     </div> 
   );
   }
