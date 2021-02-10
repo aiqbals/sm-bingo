@@ -3,7 +3,7 @@ import "./Celebration.scss";
 const Celebration = ({ circle }) => {
   return (
     <div className="">
-      <h2 className="celbtxt"> BINGO </h2>
+      <h2 className="celbtxt"> B I N G O </h2>
       <svg
         className="pulse"
         viewBox="0 0 1024 1024"
