@@ -97,7 +97,6 @@ class App extends Component {
     const newChecked = { ...checked, [id]: !checked[id] };
     const won = this.isWon(newChecked);
     if (won) {
-      console.log('test')
       this.showCelbr()
     }
     this.setState( {
