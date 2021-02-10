@@ -1,29 +1,29 @@
 .tile {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  
-    padding: 10px;
-    min-height: 40px;
-    font-weight: bold;
-    font-size: 20px;
-  
-    border: 2px yellowgreen solid;
-    border-radius: 10px;
-    color: rgb(0, 0, 0);
-    cursor: pointer;
-  }
-  
- .tileset {
-    background: rgb(0, 0, 0);
-    text-decoration: line-through;
-    text-decoration-color: red;
-    color: rgb(230, 230, 230);
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  .avoid-clicks {
-    pointer-events: none;
-    color: goldenrod;
-    background: rgb(0, 0, 0);
-    text-decoration: none;
-  }
+  padding: 10px;
+  min-height: 40px;
+  font-weight: bold;
+  font-size: 20px;
+
+  border: 2px yellowgreen solid;
+  border-radius: 10px;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+}
+
+.tileset {
+  background: rgb(0, 0, 0);
+  text-decoration: line-through;
+  text-decoration-color: red;
+  color: rgb(230, 230, 230);
+}
+
+.avoid-clicks {
+  pointer-events: none;
+  color: goldenrod;
+  background: rgb(0, 0, 0);
+  text-decoration: none;
+}

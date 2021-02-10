@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import shuffle from "shuffle-array";
 import Celebration from "../components/Celebration/Celebration";
 import Cell from "../components/Cell/Cell";
-import './App.scss';
+import "./App.scss";
 
 const phrases = [
   "CONF CALL BINGO",
@@ -29,7 +29,7 @@ const phrases = [
   "lets wait for __!",
   "You will send the minutes? ",
   "sorry, i was on mute.",
-  "can you repeat, please?"
+  "can you repeat, please?",
 ];
 
 const data = shuffle(phrases);
@@ -37,10 +37,7 @@ const temp = data[12];
 const confBingo = data.indexOf("CONF CALL BINGO");
 data[12] = data[confBingo];
 data[confBingo] = temp;
-data.reduce(
-  (data, value, index) => ({ ...data, [index]: value }),
-  {}
-); 
+data.reduce((data, value, index) => ({ ...data, [index]: value }), {});
 
 /* 
 const empty = []
@@ -48,12 +45,10 @@ const empty = []
 const shuffle = (array, index) => {
   if (array.length === 0) return `empty array`
   if (index > array.length - 1 || index < 0) return -1
-
   const copy = [
     ...array.slice(0, index),
     ...array.slice(index + 1, array.length),
   ]
-
   copy.sort(() => Math.random() - 0.5)
   copy.splice(index, 0, array[index])
 
@@ -71,50 +66,54 @@ class App extends Component {
     this.state = {
       checked: { 12: true },
       show: false,
-      disap : true,
-      celb: [1,2,3,4,5],
-    }
+      disap: false,
+      celb: [1, 2, 3, 4, 5],
+    };
   }
 
-  showCelbr () {
-    setTimeout( () => this.setState({disap: false}), 4000);
+  showCelbr() {
+    setTimeout(() => this.setState({ disap: false }), 4000);
   }
 
   isWon(checked) {
     const range = [0, 1, 2, 3, 4];
-  return (
-    undefined !==
-      range.find(row => range.every(column => checked[row * 5 + column])) ||
-    undefined !==
-      range.find(column => range.every(row => checked[row * 5 + column])) ||
-      range.every(index => checked[index * 5 + index]) ||
-      range.every(index => checked[index * 5 + 4 - index])
-  );
-};
+    return (
+      undefined !==
+        range.find((row) =>
+          range.every((column) => checked[row * 5 + column])
+        ) ||
+      undefined !==
+        range.find((column) =>
+          range.every((row) => checked[row * 5 + column])
+        ) ||
+      range.every((index) => checked[index * 5 + index]) ||
+      range.every((index) => checked[index * 5 + 4 - index])
+    );
+  }
 
-  toggle(id){
+  toggle(id) {
     const { checked } = this.state;
     const newChecked = { ...checked, [id]: !checked[id] };
     const won = this.isWon(newChecked);
     if (won) {
-      this.showCelbr()
+      this.showCelbr();
     }
-    this.setState( {
+    this.setState({
       checked: newChecked,
       won,
-      disap: won
-     } )
+      disap: won,
+    });
   }
 
   render() {
-  const  {won, show, disap} = this.state;
-  const onBtnPlay = () => {
-    let state = Object.assign({}, this.state, {show: true});
-    this.setState(state)
-  }
+    const { won, show, disap } = this.state;
+    const onBtnPlay = () => {
+      let state = Object.assign({}, this.state, { show: true });
+      this.setState(state);
+    };
 
-  let bingo = this.state.show ? 
-      Object.keys(data).map(id => (
+    let bingo = this.state.show ? (
+      Object.keys(data).map((id) => (
         <Cell
           key={id}
           id={id}
@@ -122,20 +121,23 @@ class App extends Component {
           onToggle={() => this.toggle(id)}
         >
           {data[id]}
-        </Cell> 
-    )) : 
-    <button onClick={onBtnPlay} className='w-20 shadow-5 pa2 mt4'> Play </button>;
-  
-  
-  return (
-    <div className="App">
-      <h1 className='tc f2'>sm-bingo</h1>
-      <div className={ `${show ? 'wrapper' : ''}` }>
-        {bingo}
-      </div> 
-      { won && disap ? <Celebration won = {won} circle={this.state.celb} />: null }
-    </div> 
-  );
+        </Cell>
+      ))
+    ) : (
+      <button onClick={onBtnPlay} className="w-20 shadow-5 pa2 mt4">
+        Play
+      </button>
+    );
+
+    return (
+      <div className="App">
+        <h1 className="tc f2">sm-bingo</h1>
+        <div className={`${show ? "wrapper" : ""}`}>{bingo}</div>
+        {won && disap ? (
+          <Celebration won={won} circle={this.state.celb} />
+        ) : null}
+      </div>
+    );
   }
 }
 
