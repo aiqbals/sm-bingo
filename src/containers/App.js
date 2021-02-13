@@ -77,7 +77,7 @@ class App extends Component {
   }
 
   showCelbr() {
-    setTimeout(() => this.setState({ won: false }), 4000); 
+    setTimeout(() => this.setState({ won: false }), 3000); 
   }
 
   isWon(checked) {
