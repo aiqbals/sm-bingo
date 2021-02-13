@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import shuffle from "shuffle-array";
 import Celebration from "../components/Celebration/Celebration";
 import Cell from "../components/Cell/Cell";
 import "./App.scss";
 
 const phrases = [
-  "CONF CALL BINGO",
+  "i was having connection issues",
   "child noises in the background ",
   "Hello, hello",
   "i neeed to jump o another call ",
@@ -17,7 +16,7 @@ const phrases = [
   "sorry, i had problems logging in",
   "animal noises in the background",
   "sorry, i didn't found the conference id ",
-  "i was having connection issues",
+  "CONF CALL BINGO", 
   "is___on the call?",
   "Could you share this slides afterwards",
   "can somebody grant presenter rights?",
@@ -32,32 +31,37 @@ const phrases = [
   "can you repeat, please?",
 ];
 
-const data = shuffle(phrases);
-const temp = data[12];
-const confBingo = data.indexOf("CONF CALL BINGO");
-data[12] = data[confBingo];
-data[confBingo] = temp;
-data.reduce((data, value, index) => ({ ...data, [index]: value }), {});
-
-/* 
-const empty = []
-
 const shuffle = (array, index) => {
   if (array.length === 0) return `empty array`
   if (index > array.length - 1 || index < 0) return -1
-  const copy = [
+  /* const copy = [
     ...array.slice(0, index),
     ...array.slice(index + 1, array.length),
   ]
   copy.sort(() => Math.random() - 0.5)
-  copy.splice(index, 0, array[index])
-
+  copy.splice(index, 0, array[index]) // not feasible incase the desired index value changes its position, means index dependent not value dependent*/
+  const copy = array.sort(() => Math.random() - 0.5)
+  const temp = copy[12];
+  const confBingo = copy.indexOf("CONF CALL BINGO");
+  copy[12] = copy[confBingo];
+  copy[confBingo] = temp;
   return copy
 }
+const data = shuffle(phrases, 12);
+data.reduce((data, value, index) => ({ ...data, [index]: value }), {});
 
-console.log(shuffle(myArr, 3))
-console.log(shuffle(empty, 3)) */
-
+/* const r1 = {0: true,1: true,2: true,3: true,4: true};
+const r2 = {5: true,6: true,7: true,8: true,9: true};
+const r3 = {10: true,11: true,12: true,13: true,14: true};
+const r4 = {15: true,16: true,17: true,18: true,19: true};
+const r5 = {20: true,21: true,22: true,23: true,24: true};
+const c1 = {0: true,5: true,10: true,15: true,20: true};
+const c2 = {1: true,6: true,11: true,16: true,21: true};
+const c3 = {2: true,7: true,12: true,17: true,22: true};
+const c4 = {3: true,8: true,13: true,18: true,23: true};
+const c5 = {4: true,9: true,14: true,19: true,24: true};
+const d1 = {1: true,6: true,12: true,18: true,24: true};
+const d2 = {4: true,8: true,12: true,16: true,20: true}; */
 class App extends Component {
   constructor(props) {
     super(props);
@@ -66,18 +70,19 @@ class App extends Component {
     this.state = {
       checked: { 12: true },
       show: false,
+      won: false,
       disap: false,
-      celb: [1, 2, 3, 4, 5],
+      celb: [1, 2, 3, 4, 5], 
     };
   }
 
   showCelbr() {
-    setTimeout(() => this.setState({ disap: false }), 4000);
+    setTimeout(() => this.setState({ won: false }), 4000); 
   }
 
   isWon(checked) {
     const range = [0, 1, 2, 3, 4];
-    return (
+    return(
       undefined !==
         range.find((row) =>
           range.every((column) => checked[row * 5 + column])
@@ -88,21 +93,21 @@ class App extends Component {
         ) ||
       range.every((index) => checked[index * 5 + index]) ||
       range.every((index) => checked[index * 5 + 4 - index])
-    );
+    );     
   }
 
   toggle(id) {
     const { checked } = this.state;
-    const newChecked = { ...checked, [id]: !checked[id] };
-    const won = this.isWon(newChecked);
+    let newChecked = { ...checked, [id]: !checked[id] };
+    let won = this.isWon(newChecked);
     if (won) {
       this.showCelbr();
-    }
+    } 
     this.setState({
       checked: newChecked,
       won,
-      disap: won,
-    });
+      disap: won
+    }); 
   }
 
   render() {
@@ -133,7 +138,7 @@ class App extends Component {
       <div className="App">
         <h1 className="tc f2">sm-bingo</h1>
         <div className={`${show ? "wrapper" : ""}`}>{bingo}</div>
-        {won && disap ? (
+        {won && disap? (
           <Celebration won={won} circle={this.state.celb} />
         ) : null}
       </div>
