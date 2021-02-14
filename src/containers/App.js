@@ -82,17 +82,18 @@ class App extends Component {
 
   isWon(checked) {
     const range = [0, 1, 2, 3, 4];
+    const len = Object.keys(checked).length;
     return(
-      undefined !==
-        range.find((row) =>
+      (undefined !== 
+        (range.find((row) =>
           range.every((column) => checked[row * 5 + column])
-        ) ||
-      undefined !==
-        range.find((column) =>
+        )) && (len-1)%5===0) ||
+      (undefined !==
+        (range.find((column) =>
           range.every((row) => checked[row * 5 + column])
-        ) ||
-      range.every((index) => checked[index * 5 + index]) ||
-      range.every((index) => checked[index * 5 + 4 - index])
+        )) && (len-1)%5===0) ||
+      (range.every((index) => checked[index * 5 + index]) && (len-1)%4===0) ||
+      (range.every((index) => checked[index * 5 + 4 - index]) && (len-1)%4===0)
     );     
   }
 
