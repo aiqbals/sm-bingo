@@ -65,7 +65,7 @@ const d2 = {4: true,8: true,12: true,16: true,20: true}; */
 class App extends Component {
   constructor(props) {
     super(props);
-    this.showCelbr = this.showCelbr.bind(this);
+    this.showCelebration = this.showCelebration.bind(this);
     this.toggle = this.toggle.bind(this);
     this.state = {
       checked: { 12: true },
@@ -76,7 +76,7 @@ class App extends Component {
     };
   }
 
-  showCelbr() {
+  showCelebration() {
     setTimeout(() => this.setState({ won: false }), 3000); 
   }
 
@@ -101,7 +101,7 @@ class App extends Component {
     let newChecked = { ...checked, [id]: !checked[id] };
     let won = this.isWon(newChecked);
     if (won) {
-      this.showCelbr();
+      this.showCelebration();
     } 
     this.setState({
       checked: newChecked,
@@ -117,7 +117,7 @@ class App extends Component {
       this.setState(state);
     };
 
-    let bingo = this.state.show ? (
+    let cells = this.state.show ? (
       Object.keys(data).map((id) => (
         <Cell
           key={id}
@@ -137,7 +137,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1 className="tc f2">sm-bingo</h1>
-        <div className={`${show ? "wrapper" : ""}`}>{bingo}</div>
+        <div className={`${show ? "wrapper" : ""}`}>{cells}</div>
         {won && disap? (
           <Celebration won={won} circle={this.state.celb} />
         ) : null}
