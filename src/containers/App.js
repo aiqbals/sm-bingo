@@ -79,7 +79,9 @@ class App extends Component {
   showCelebration() {
     setTimeout(() => this.setState({ won: false }), 4000); 
   }
-
+  // Issues: 
+  // Single winning is possible in all combination nicely by removing multiple winning condition
+  // Multiple time winning is possible by checked obj length-1%5 for row,column and length-1%4 for diagonal except few cases, it doesnt work.
   isWon(checked) {
     const range = [0, 1, 2, 3, 4];
     const len = Object.keys(checked).length; // to calculate multiple winning
