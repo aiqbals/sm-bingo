@@ -77,12 +77,12 @@ class App extends Component {
   }
 
   showCelebration() {
-    setTimeout(() => this.setState({ won: false }), 3000); 
+    setTimeout(() => this.setState({ won: false }), 4000); 
   }
 
   isWon(checked) {
     const range = [0, 1, 2, 3, 4];
-    const len = Object.keys(checked).length;
+    const len = Object.keys(checked).length; 
     return(
       (undefined !== 
         (range.find((row) =>
