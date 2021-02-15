@@ -30,7 +30,7 @@ const phrases = [
   "sorry, i was on mute.",
   "can you repeat, please?",
 ];
-
+//not ideal using shuffle libray only for shuffling an samll arraya
 const shuffle = (array, index) => {
   if (array.length === 0) return `empty array`
   if (index > array.length - 1 || index < 0) return -1
@@ -82,7 +82,7 @@ class App extends Component {
 
   isWon(checked) {
     const range = [0, 1, 2, 3, 4];
-    const len = Object.keys(checked).length; 
+    const len = Object.keys(checked).length; // to calculate multiple winning
     return(
       (undefined !== 
         (range.find((row) =>
@@ -91,11 +91,11 @@ class App extends Component {
       (undefined !==
         (range.find((column) =>
           range.every((row) => checked[row * 5 + column])
-        )) && (len%5)===0) ||
+        )) && (len-1)%5===0) ||
       (range.every((index) => checked[index * 5 + index]) && (len-1)%4===0) ||
       (range.every((index) => checked[index * 5 + 4 - index]) && (len-1)%4===0)
     );     
-  }
+  } 
 
   toggle(id) {
     const { checked } = this.state;
