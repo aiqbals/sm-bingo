@@ -91,7 +91,7 @@ class App extends Component {
       (undefined !==
         (range.find((column) =>
           range.every((row) => checked[row * 5 + column])
-        )) && (len-1)%5===0) ||
+        )) && (len%5)===0) ||
       (range.every((index) => checked[index * 5 + index]) && (len-1)%4===0) ||
       (range.every((index) => checked[index * 5 + 4 - index]) && (len-1)%4===0)
     );     
