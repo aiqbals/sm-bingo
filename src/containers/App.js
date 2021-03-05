@@ -98,6 +98,7 @@ class App extends Component {
       (range.every((index) => checked[index * 5 + 4 - index]) && (len-1)%4===0)
     );     
   } 
+  
 
   toggle(id) {
     const { checked } = this.state;
