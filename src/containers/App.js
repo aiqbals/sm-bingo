@@ -90,15 +90,22 @@ class App extends Component {
         (range.find((row) =>
           range.every((column) => checked[row * 5 + column])
         )) && (len-1)%5===0) ||
+      (undefined !== 
+        (range.find((row) =>
+            range.every((column) => checked[row * 5 + column] && checked[row]===checked[2])
+        )) && len%5===0) ||
       (undefined !==
         (range.find((column) =>
           range.every((row) => checked[row * 5 + column])
         )) && (len-1)%5===0) ||
+      (undefined !==
+        (range.find((column) =>
+          range.every((row) => checked[row * 5 + column] && checked[column]===checked[2])
+        )) && len%5===0) ||
       (range.every((index) => checked[index * 5 + index]) && (len-1)%4===0) ||
       (range.every((index) => checked[index * 5 + 4 - index]) && (len-1)%4===0)
     );     
   } 
-  
 
   toggle(id) {
     const { checked } = this.state;
