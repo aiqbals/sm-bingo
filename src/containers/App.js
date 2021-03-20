@@ -89,15 +89,18 @@ class App extends Component {
       (undefined !== 
         (range.find((row) =>
           range.every((column) => checked[row * 5 + column])
-        )) && (len-1)%5===0) ||
-      /* (undefined !== 
-        (range.find((row) =>
-            range.every((column) => checked[row * 5 + column] && checked[row]===checked[2])
-        )) && len%5===0) || */
-      (undefined !==
+        )) && len > 15 ? len%5===0 : (len-1)%5===0) ||
+      (undefined !== 
+        checked[10] && checked[11]  && checked[12] && checked[13] && checked[14] ) && len%5===0 || 
+      (undefined !== 
         (range.find((column) =>
           range.every((row) => checked[row * 5 + column])
         )) && (len-1)%5===0) ||
+      (undefined !== 
+        checked[2] && checked[7]  && checked[12] && checked[17] && checked[22] ) && len%5===0 ||
+      (undefined !== 
+        checked[2] && checked[7]  && checked[12] && checked[17] && checked[22] 
+        && checked[10] && checked[11]  && checked[12] && checked[13] && checked[14]) && (len+1)%5===0 ||
       /* (undefined !==
         (range.find((column) =>
           range.every((row) => checked[row * 5 + column] && checked[column]===checked[2])
@@ -108,6 +111,7 @@ class App extends Component {
   } 
 
   toggle(id) {
+    //debugger
     const { checked } = this.state;
     let newChecked = { ...checked, [id]: !checked[id] };
     let won = this.isWon(newChecked);
