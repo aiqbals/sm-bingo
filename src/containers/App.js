@@ -87,24 +87,13 @@ class App extends Component {
     const len = Object.keys(checked).length; // to calculate multiple winning
     return(
       (undefined !== 
-        (range.find((row) =>
-          range.every((column) => checked[row * 5 + column])
-        )) && len > 15 ? len%5===0 : (len-1)%5===0) ||
-      (undefined !== 
-        checked[10] && checked[11]  && checked[12] && checked[13] && checked[14] ) && len%5===0 || 
+        (range.map((row) =>
+          range.map((column) => checked[row * 5 + column])
+        )) && (len-1)%5===0) ||
       (undefined !== 
         (range.find((column) =>
           range.every((row) => checked[row * 5 + column])
         )) && (len-1)%5===0) ||
-      (undefined !== 
-        checked[2] && checked[7]  && checked[12] && checked[17] && checked[22] ) && len%5===0 ||
-      (undefined !== 
-        checked[2] && checked[7]  && checked[12] && checked[17] && checked[22] 
-        && checked[10] && checked[11]  && checked[12] && checked[13] && checked[14]) && (len+1)%5===0 ||
-      /* (undefined !==
-        (range.find((column) =>
-          range.every((row) => checked[row * 5 + column] && checked[column]===checked[2])
-        )) && len%5===0) || */
       (range.every((index) => checked[index * 5 + index]) && (len-1)%4===0) ||
       (range.every((index) => checked[index * 5 + 4 - index]) && (len-1)%4===0)
     );     
