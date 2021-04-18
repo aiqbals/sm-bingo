@@ -62,11 +62,38 @@ const c4 = {3: true,8: true,13: true,18: true,23: true};
 const c5 = {4: true,9: true,14: true,19: true,24: true};
 const d1 = {1: true,6: true,12: true,18: true,24: true};
 const d2 = {4: true,8: true,12: true,16: true,20: true}; */
+
+const winArr = [
+[0,1,2,3,4],
+[5,6,7,8,9],
+[10,11,12,13,14],
+[15,16,17,18,19],
+[20,21,22,23,24],
+[0,5,10,15,20],
+[1,6,11,16,21],
+[2,7,12,17,22],
+[3,8,13,18,23],
+[4,9,14,19,24],
+[1,6,12,18,24],
+[4,8,12,16,20]
+]
+let check = {1:true, 2:true, 3:true, 4:true, 5:true, 6:true, 7:true, 8:true, 9:true, 10:true}
+/* let test = winArr.map( e => {
+  e.map(eachnum => {
+      if( !check.hasOwnProperty(eachnum) ) {
+        return false;
+      }
+      return true;
+  })
+})
+test; */
+
 class App extends Component {
   constructor(props) {
     super(props);
-    this.showCelebration = this.showCelebration.bind(this);
-    this.toggle = this.toggle.bind(this);
+    //this.showCelebration = this.showCelebration.bind(this);
+    //this.toggle = this.toggle.bind(this);
+    // if you dont use arrow fn, we have to bind the methods this way
     this.state = {
       checked: { 12: true },
       show: false,
@@ -76,30 +103,33 @@ class App extends Component {
     };
   }
 
-  showCelebration() {
+  showCelebration = () => {
     setTimeout(() => this.setState({ won: false }), 4000); 
   }
+  /* showCelebration() {
+    setTimeout(() => this.setState({ won: false }), 4000); 
+  } */ // when we use binding in constructor
   // Issues: 
   // Single winning is possible in all combination nicely by removing multiple winning condition
   // Multiple time winning is possible by checked obj length-1%5 for row,column and length-1%4 for diagonal except few cases, it doesnt work.
   isWon(checked) {
     const range = [0, 1, 2, 3, 4];
-    const len = Object.keys(checked).length; // to calculate multiple winning
+    const len = Object.keys(checked).length;
     return(
       (undefined !== 
-        (range.map((row) =>
-          range.map((column) => checked[row * 5 + column])
+        (range.find((row) => 
+          range.every((column) => checked[row * 5 + column])
         )) && (len-1)%5===0) ||
       (undefined !== 
         (range.find((column) =>
           range.every((row) => checked[row * 5 + column])
         )) && (len-1)%5===0) ||
-      (range.every((index) => checked[index * 5 + index]) && (len-1)%4===0) ||
-      (range.every((index) => checked[index * 5 + 4 - index]) && (len-1)%4===0)
-    );     
+      (range.every((index) => checked[index * 5 + index])) && len%5===0 ||
+      (range.every((index) => checked[index * 5 + index])) && len%5===0
+    );    
   } 
 
-  toggle(id) {
+  toggle = (id) => {
     //debugger
     const { checked } = this.state;
     let newChecked = { ...checked, [id]: !checked[id] };
